@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f5eb">
+  <meta name="description" content="Grow your own little garden, one focused session at a time.">
+  <title>Focus Garden</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#">
+        <span class="brand-icon">🌱</span>
+        <span>focus<span class="brand-accent">garden</span></span>
+      </a>
+
+      <div class="header-actions">
+        <span class="streak-pill">🌿 Little steps count</span>
+        <button class="icon-button" id="sound-toggle" type="button" aria-label="Toggle sounds" aria-pressed="true">🔔</button>
+        <button class="icon-button" id="settings-toggle" type="button" aria-label="Open settings">⚙️</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="welcome-section">
+        <div>
+          <p class="eyebrow">YOUR LITTLE CORNER OF CALM</p>
+          <h1>Make space to <span>grow.</span></h1>
+          <p class="welcome-description">One thing at a time. Your little garden is growing with you.</p>
+        </div>
+        <div class="weather-illustration" aria-hidden="true">☀️</div>
+      </section>
+
+      <section class="dashboard-grid">
+        <article class="card timer-card">
+          <div class="card-heading">
+            <div>
+              <p class="eyebrow">YOUR FOCUS SPACE</p>
+              <h2 id="mode-heading">Time to focus</h2>
+            </div>
+            <span class="live-indicator">
+              <span class="live-dot"></span>
+              <span id="timer-status">Ready when you are</span>
+            </span>
+          </div>
+
+          <div class="mode-tabs" role="group" aria-label="Timer mode">
+            <button class="mode-tab active" type="button" data-mode="focus" aria-pressed="true">🍃 Focus</button>
+            <button class="mode-tab" type="button" data-mode="short" aria-pressed="false">☕ Short break</button>
+            <button class="mode-tab" type="button" data-mode="long" aria-pressed="false">🌼 Long break</button>
+          </div>
+
+          <div class="timer-display">
+            <svg class="timer-ring" viewBox="0 0 280 280" aria-hidden="true">
+              <circle class="timer-ring-track" cx="140" cy="140" r="126"></circle>
+              <circle class="timer-ring-progress" id="timer-progress" cx="140" cy="140" r="126"></circle>
+            </svg>
+
+            <div class="timer-center">
+              <div class="timer-plant" id="timer-plant" aria-hidden="true">🌱</div>
+              <div class="time-text" id="time-display" role="timer" aria-label="25 minutes remaining">25:00</div>
+              <p class="timer-caption" id="timer-caption">A little progress goes a long way.</p>
+            </div>
+          </div>
+
+          <div class="timer-controls">
+            <button class="button button-primary" id="start-button" type="button">
+              <span id="start-icon">▶</span>
+              <span id="start-label">Start focusing</span>
+            </button>
+            <button class="button button-secondary" id="reset-button" type="button">↺ Reset</button>
+          </div>
+
+          <p class="timer-hint" id="timer-hint">Put your phone away. Let's grow something.</p>
+
+          <div class="session-goal">
+            <span>Today's little goal</span>
+            <strong id="goal-progress">0 / 4 focus sessions</strong>
+            <div class="goal-track">
+              <div class="goal-fill" id="goal-fill"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card plant-card">
+          <div class="card-heading">
+            <div>
+              <p class="eyebrow">YOUR CURRENT PLANT</p>
+              <h2 id="plant-name">Little Sprout</h2>
+            </div>
+            <span class="level-pill" id="plant-level">Stage 1 / 5</span>
+          </div>
+
+          <div class="plant-scene" id="plant-scene">
+            <div class="scene-sun" aria-hidden="true">☀</div>
+            <div class="scene-cloud cloud-one" aria-hidden="true">☁</div>
+            <div class="scene-cloud cloud-two" aria-hidden="true">☁</div>
+
+            <div class="plant-art" id="plant-art">
+              <span class="plant-emoji" id="plant-emoji" aria-hidden="true">🌱</span>
+              <span class="plant-sparkle sparkle-one" aria-hidden="true">✦</span>
+              <span class="plant-sparkle sparkle-two" aria-hidden="true">✧</span>
+            </div>
+
+            <div class="plant-pot" aria-hidden="true">
+              <div class="pot-rim"></div>
+              <div class="pot-body"></div>
+              <div class="pot-base"></div>
+            </div>
+
+            <div class="scene-ground" aria-hidden="true"></div>
+          </div>
+
+          <div class="plant-info">
+            <div>
+              <p class="muted-label">FOCUS TIME INVESTED</p>
+              <h3 id="plant-focus-time">0 minutes</h3>
+            </div>
+            <span class="plant-mood" id="plant-mood">Happy to see you 🌱</span>
+          </div>
+
+          <div class="growth-section">
+            <div class="growth-label-row">
+              <span>Next growth stage</span>
+              <strong id="growth-percentage">0%</strong>
+            </div>
+            <div class="growth-track" id="growth-track" role="progressbar" aria-label="Plant growth progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="growth-fill" id="growth-fill"></div>
+            </div>
+            <p class="growth-caption" id="growth-caption">Complete a focus session to help your plant grow.</p>
+          </div>
+
+          <div class="plant-quote">
+            <span aria-hidden="true">❝</span>
+            Small steps every day add up to big things.
+          </div>
+        </article>
+      </section>
+
+      <section class="stats-grid" aria-label="Your focus statistics">
+        <article class="stat-card">
+          <div class="stat-icon stat-green">🍅</div>
+          <div>
+            <p>Sessions completed</p>
+            <h3 id="total-sessions">0</h3>
+            <span>Little wins, stacked up</span>
+          </div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-icon stat-yellow">⏱️</div>
+          <div>
+            <p>Total focus time</p>
+            <h3><span id="total-focus-minutes">0</span> <small>min</small></h3>
+            <span>Time well spent</span>
+          </div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-icon stat-pink">🌸</div>
+          <div>
+            <p>Plants grown</p>
+            <h3 id="total-plants">0</h3>
+            <span>Your own tiny forest</span>
+          </div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-icon stat-purple">✨</div>
+          <div>
+            <p>Today's sessions</p>
+            <h3 id="today-sessions">0</h3>
+            <span>Keep your own pace</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="garden-section" id="garden-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">LOOK WHAT YOU GREW</p>
+            <h2>Your little garden <span>🌷</span></h2>
+            <p class="section-description">Every finished focus session plants a new memory here.</p>
+          </div>
+          <span class="garden-count" id="garden-count">0 plants</span>
+        </div>
+
+        <div class="garden-grid" id="garden-grid">
+          <div class="empty-garden" id="empty-garden">
+            <div class="empty-garden-art" aria-hidden="true">🪴</div>
+            <h3>Your garden is waiting!</h3>
+            <p>Finish your first focus session and your first plant will appear here.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="settings-panel card" id="settings-panel" hidden>
+        <div class="card-heading">
+          <div>
+            <p class="eyebrow">MAKE IT YOURS</p>
+            <h2>Timer settings</h2>
+          </div>
+          <button class="icon-button" id="settings-close" type="button" aria-label="Close settings">✕</button>
+        </div>
+
+        <p class="settings-description">Choose your session lengths in minutes. Changes are saved automatically.</p>
+
+        <form id="settings-form">
+          <label class="setting-field">
+            <span>🍃 Focus duration</span>
+            <input id="focus-duration" name="focusDuration" type="number" min="1" max="180" step="1" value="25" required>
+          </label>
+
+          <label class="setting-field">
+            <span>☕ Short break</span>
+            <input id="short-duration" name="shortDuration" type="number" min="1" max="60" step="1" value="5" required>
+          </label>
+
+          <label class="setting-field">
+            <span>🌼 Long break</span>
+            <input id="long-duration" name="longDuration" type="number" min="1" max="120" step="1" value="15" required>
+          </label>
+
+          <label class="setting-field">
+            <span>🎯 Daily session goal</span>
+            <input id="daily-goal" name="dailyGoal" type="number" min="1" max="24" step="1" value="4" required>
+          </label>
+
+          <button class="button button-primary" type="submit">Save settings</button>
+          <p class="settings-message" id="settings-message" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <footer class="app-footer">
+        <p>Made with 🌱 and a little patience.</p>
+        <p>Your growth doesn't have to be perfect. It just has to be yours.</p>
+      </footer>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <div class="completion-overlay" id="completion-overlay" hidden>
+    <div class="completion-card" role="dialog" aria-modal="true" aria-labelledby="completion-title">
+      <div class="completion-confetti" aria-hidden="true">✨ 🌱 ✨</div>
+      <div class="completion-plant" id="completion-plant" aria-hidden="true">🌿</div>
+      <p class="eyebrow">A LITTLE WIN!</p>
+      <h2 id="completion-title">You did it!</h2>
+      <p id="completion-message">You showed up for yourself. Your garden is growing.</p>
+      <button class="button button-primary" id="completion-close" type="button">Lovely! Keep growing 🌷</button>
+    </div>
+  </div>
+</body>
+</html>
